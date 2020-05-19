@@ -20,3 +20,4 @@ def checkDuplicates1(listof):
     if len(listof) == len(set(listof)):
         return False
     else:
+        return n(coviddb*covid, coviddb*coronavirus, coviddb$*pandemic)
