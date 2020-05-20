@@ -22,20 +22,29 @@ class wireTap(StreamListener):
         """
         try:
         #print(type(data))
-            tweetDate = data.split('"created_at":"')[1].split('","id"')[0]
+            print(data)
+            
+            tweetDateTime = data.split('"created_at":"')[1].split('","id"')[0]
+            day = tweetDateTime[:10]
+            year = tweetDateTime[26:]
+            tweetDate = day + ' ' + year
+            tweetID = data.split('","id":')[1].split(',"id_str":')[0]
+            allData = tweetDate + ',' + tweetID
             saveData = open(self.path, 'a')
-            saveData.write(tweetDate)
+            saveData.write(allData)
             saveData.write('\n')
             self.counter += 1
             saveData.close()
-            #print(tweetDate)
+            #print(len(tweetID))
+            
             return True
+        
         
         except BaseException:
             print('failed ondata')
             time.sleep(10)
 
-        return True
+            return True
 
     def on_error(self, status):
         """Checks the status of the data stream.  
@@ -48,9 +57,9 @@ class wireTap(StreamListener):
         if status == 420:
             print('error')
             return False
-
-    def how_many(self):
-        print(self.counter)
+    
+    #def how_many(self):
+    #    print(self.counter)
 
 """
 with open('/Users/theodore/Documents/GitHub/corona/access.txt', encoding= 'utf-8') as file:
@@ -68,4 +77,4 @@ covidStream.filter(track = ['covid'])
 """
 
 
-
+ 
